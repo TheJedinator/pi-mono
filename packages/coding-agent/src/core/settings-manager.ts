@@ -106,6 +106,7 @@ export interface Settings {
 	thinkingBudgets?: ThinkingBudgetsSettings; // Custom token budgets for thinking levels
 	editorPaddingX?: number; // Horizontal padding for input editor (default: 0)
 	autocompleteMaxVisible?: number; // Max visible items in autocomplete dropdown (default: 5)
+	autocompleteNoIgnore?: boolean; // Include git-ignored files in @ autocomplete (default: false)
 	showHardwareCursor?: boolean; // Show terminal cursor while still positioning it for IME
 	markdown?: MarkdownSettings;
 	warnings?: WarningSettings;
@@ -1049,6 +1050,10 @@ export class SettingsManager {
 		this.globalSettings.autocompleteMaxVisible = Math.max(3, Math.min(20, Math.floor(maxVisible)));
 		this.markModified("autocompleteMaxVisible");
 		this.save();
+	}
+
+	getAutocompleteNoIgnore(): boolean {
+		return this.settings.autocompleteNoIgnore ?? false;
 	}
 
 	getCodeBlockIndent(): string {
